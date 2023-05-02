@@ -47,15 +47,16 @@ namespace RestuarantProjectMVC
             var response = client.Get(request);
 
             //var restaurant = JsonConvert.DeserializeObject<RestaurantMVC>(key);
-            restaurant.restaurantName = JObject.Parse(response.Content)["restaurants"][0]["restaurantName"].ToString();
-            restaurant.address = JObject.Parse(response.Content)["restaurants"][0]["address"].ToString();
-            restaurant.zipCode = JObject.Parse(response.Content)["restaurants"][0]["zipCode"].ToString();
-            restaurant.hoursInterval = JObject.Parse(response.Content)["restaurants"][0]["hoursInterval"].ToString();
-            restaurant.phone = JObject.Parse(response.Content)["restaurants"][0]["phone"].ToString();
-            restaurant.cityName = JObject.Parse(response.Content)["restaurants"][0]["cityName"].ToString();
-            restaurant.stateName = JObject.Parse(response.Content)["restaurants"][0]["stateName"].ToString();
-            //restaurant.restaurantName = response.ToString();
-            return restaurant;
+           
+                restaurant.restaurantName = JObject.Parse(response.Content)["restaurants"][0]["restaurantName"].ToString();
+                restaurant.address = JObject.Parse(response.Content)["restaurants"][0]["address"].ToString();
+                restaurant.zipCode = JObject.Parse(response.Content)["restaurants"][0]["zipCode"].ToString();
+                restaurant.hoursInterval = JObject.Parse(response.Content)["restaurants"][0]["hoursInterval"].ToString();
+                restaurant.phone = JObject.Parse(response.Content)["restaurants"][0]["phone"].ToString();
+                restaurant.cityName = JObject.Parse(response.Content)["restaurants"][0]["cityName"].ToString();
+                restaurant.stateName = JObject.Parse(response.Content)["restaurants"][0]["stateName"].ToString();
+                //restaurant.restaurantName = response.ToString();
+                return restaurant;
         }
 
         public RestaurantMVC GetRestaurant()

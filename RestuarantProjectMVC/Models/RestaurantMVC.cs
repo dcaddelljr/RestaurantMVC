@@ -14,6 +14,7 @@ namespace RestuarantProjectMVC.Models
         public string stateName { get; set; }
         public string cityName { get; set; }
         public string hoursInterval { get; set; }
+        
     }
 
     public class Root

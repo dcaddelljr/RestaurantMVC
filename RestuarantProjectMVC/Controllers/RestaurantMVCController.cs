@@ -40,7 +40,7 @@ namespace RestuarantProjectMVC.Controllers
             }
             catch (AggregateException)
             {
-                //return RedirectToAction("Index", "Weather");
+                return RedirectToAction("Index", "Weather");
             }
 
             return View(restaurant);
