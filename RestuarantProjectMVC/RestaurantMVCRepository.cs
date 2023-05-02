@@ -20,18 +20,18 @@ using System.Linq;
 namespace RestuarantProjectMVC
 {
     public class RestaurantMVCRepository : IRestaurantMVCRepository
-	{
+    {
         private readonly string _conn;
 
         public RestaurantMVCRepository(string conn)
-		{
-			_conn = conn;
-		}
+        {
+            _conn = conn;
+        }
 
         public RestaurantMVC GetRestaurant(string zipCode)
         {
             //{restaurantName = "", address = "", zipCode = "", hoursInterval = "", phone = "", cityName = "", stateName = ""}
-            var restaurant = new RestaurantMVC() ;
+            //var restaurant = new RestaurantMVC();
 
             string key = File.ReadAllText("appsettings.json");
             string APIKey = JObject.Parse(key).GetValue("APIKey").ToString();
@@ -47,16 +47,29 @@ namespace RestuarantProjectMVC
             var response = client.Get(request);
 
             //var restaurant = JsonConvert.DeserializeObject<RestaurantMVC>(key);
-           
-                restaurant.restaurantName = JObject.Parse(response.Content)["restaurants"][0]["restaurantName"].ToString();
-                restaurant.address = JObject.Parse(response.Content)["restaurants"][0]["address"].ToString();
-                restaurant.zipCode = JObject.Parse(response.Content)["restaurants"][0]["zipCode"].ToString();
-                restaurant.hoursInterval = JObject.Parse(response.Content)["restaurants"][0]["hoursInterval"].ToString();
-                restaurant.phone = JObject.Parse(response.Content)["restaurants"][0]["phone"].ToString();
-                restaurant.cityName = JObject.Parse(response.Content)["restaurants"][0]["cityName"].ToString();
-                restaurant.stateName = JObject.Parse(response.Content)["restaurants"][0]["stateName"].ToString();
-                //restaurant.restaurantName = response.ToString();
-                return restaurant;
+
+            //var parsedObj = JObject.Parse(response.Content);
+
+            try
+            {
+                var restaurants = new List<RestaurantMVC>();
+                var list = JObject.Parse(response.Content)["restaurants"];
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var restaurant = list.ToObject(new List<RestaurantMVC>());
+                    restaurants.Add(restaurant);
+                }
+
+                return restaurants;
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return List<RestaurantMVC>();
+
         }
 
         public RestaurantMVC GetRestaurant()
