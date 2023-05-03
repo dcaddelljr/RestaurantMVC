@@ -22,16 +22,30 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            @foreach (var rest in results.restaurants)
+            @if (results.restaurants == null)
             {
                 <tr>
-                    <td>@rest.restaurantName</td>
-                    <td>@rest.phone </td>
-                    <td>@rest.hoursInterval </td>
-                    <td>@rest.address </td>
-                    <td>@rest.cityName </td>
-                    <td>@rest.stateName </td>
+                    <td>No restaurant returned. Go back home.</td>
+                    <td>null</td>
+                    <td>null</td>
+                    <td>null</td>
+                    <td>null</td>
+                    <td>null</td>
                 </tr>
+            }
+            else
+            {
+                @foreach (var rest in results.restaurants)
+                {
+                    <tr>
+                        <td>@rest.restaurantName</td>
+                        <td>@rest.phone </td>
+                        <td>@rest.hoursInterval </td>
+                        <td>@rest.address </td>
+                        <td>@rest.cityName </td>
+                        <td>@rest.stateName </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
