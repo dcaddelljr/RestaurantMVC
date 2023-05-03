@@ -17,7 +17,7 @@ namespace RestuarantProjectMVC.Controllers
     {
 
         private readonly IRestaurantMVCRepository repo;
-        private RestaurantMVC restaurant;
+        //private RestaurantMVC restaurant;
 
         // GET: /<controller>/
 
@@ -26,17 +26,18 @@ namespace RestuarantProjectMVC.Controllers
             repo = restaurantMVC;
         }
         
-        public IActionResult Index(string zipCode)
+        public IActionResult Index(string zipCode, int page)
         {
-            var restaurant = new RestaurantMVC();
+            var restaurant = new RestaurantAPIResult();
+            ViewBag.ZipCode = zipCode;
 
-            if (zipCode == null)
+            if (string.IsNullOrEmpty(zipCode) )
             {
                 return View(restaurant);
             }
             try
             {
-                restaurant = repo.GetRestaurant(zipCode);
+                restaurant = repo.GetRestaurants(zipCode, page);
             }
             catch (AggregateException)
             {
@@ -45,31 +46,31 @@ namespace RestuarantProjectMVC.Controllers
 
             return View(restaurant);
         }
-       
-        public IActionResult RestuarantMVC(string zipCode)
-        {
-            var restaruant = new RestaurantMVC();
 
-            if (zipCode == null)
-            {
-                return View(restaruant);
-            }
+        //public IActionResult RestuarantMVC(string zipCode)
+        //{
+        //    var restaruant = new RestaurantMVC();
 
-            try
-            {
-                restaurant = repo.GetRestaurant(zipCode);
-            }
-            catch (Exception)
-            {
-                return RedirectToAction("Index", "Restaurant");
-            }
-            restaruant = repo.GetRestaurant(zipCode);
+        //    if (zipCode == null)
+        //    {
+        //        return View(restaruant);
+        //    }
 
-            ViewBag.Restaurant = GetRestaurant();
-            return View();
-        }
+        //    try
+        //    {
+        //        restaurant = repo.GetRestaurants(zipCode);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return RedirectToAction("Index", "Restaurant");
+        //    }
+        //    restaruant = repo.GetRestaurants(zipCode);
 
-        private dynamic GetRestaurant()
+        //    ViewBag.Restaurant = GetRestaurants();
+        //    return View();
+        //}
+
+        private dynamic GetRestaurants()
         {
             throw new NotImplementedException();
         }

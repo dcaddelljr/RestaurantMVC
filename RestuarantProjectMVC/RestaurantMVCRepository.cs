@@ -28,59 +28,37 @@ namespace RestuarantProjectMVC
             _conn = conn;
         }
 
-        public RestaurantMVC GetRestaurant(string zipCode)
+        public RestaurantAPIResult GetRestaurants(string zipCode, int page)
         {
-            //{restaurantName = "", address = "", zipCode = "", hoursInterval = "", phone = "", cityName = "", stateName = ""}
-            //var restaurant = new RestaurantMVC();
-
+           
             string key = File.ReadAllText("appsettings.json");
             string APIKey = JObject.Parse(key).GetValue("APIKey").ToString();
 
-            var client = new RestClient($"https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/{zipCode}/0");
+            var client = new RestClient($"https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/{zipCode}/{page}");
 
             var request = new RestRequest();
-            //var zipcode = new Zipcode();
             request.AddHeader("content-type", "application/octet-stream");
             request.AddHeader("X-RapidAPI-Key", $"{APIKey}");
             request.AddHeader("X-RapidAPI-Host", "restaurants-near-me-usa.p.rapidapi.com");
-            //request.AddParameter("restaurantName", "1");
+            
             var response = client.Get(request);
-
-            //var restaurant = JsonConvert.DeserializeObject<RestaurantMVC>(key);
-
-            //var parsedObj = JObject.Parse(response.Content);
 
             try
             {
                 var restaurants = new List<RestaurantMVC>();
-                var list = JObject.Parse(response.Content)["restaurants"];
+                var results = JObject.Parse(response.Content).ToObject<RestaurantAPIResult>();
 
-                for (int i = 0; i < list.Count; i++)
-                {
-                    var restaurant = list.ToObject(new List<RestaurantMVC>());
-                    restaurants.Add(restaurant);
-                }
-
-                return restaurants;
+                return results;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
 
-            return List<RestaurantMVC>();
+            return new RestaurantAPIResult();
 
         }
 
-        public RestaurantMVC GetRestaurant()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<RestaurantMVC> GetRestaurants()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

@@ -9,9 +9,9 @@ namespace RestuarantProjectMVC
 	public interface IRestaurantMVCRepository
 	{
        
-        public RestaurantMVC GetRestaurant(string zipCode);
-        RestaurantMVC GetRestaurant();
-        public IEnumerable<RestaurantMVC> GetRestaurants();
+        //public RestaurantMVC GetRestaurants(string zipCode);
+        
+        public RestaurantAPIResult GetRestaurants(string zipCode, int page);
 
     }
 }

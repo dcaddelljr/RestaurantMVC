@@ -17,7 +17,7 @@ namespace RestuarantProjectMVC.Models
         
     }
 
-    public class Root
+    public class RestaurantAPIResult
     {
         public int matching_results { get; set; }
         public List<RestaurantMVC> restaurants { get; set; }

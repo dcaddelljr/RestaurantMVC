@@ -2,7 +2,7 @@
 @using RestuarantProjectMVC;
 @{
     //RestaurantMVC restaurant = ViewBag.Restaurant as RestaurantMVC;
-    var restaurant = ViewData.Model;
+    RestaurantAPIResult results = ViewData.Model;
 }
 
 
@@ -10,7 +10,7 @@
 <div class="text-center align-items-center">
     <h2>Restaurants</h2>
 
-    <table class=" table table-bordered table-striped">
+    <table class=" table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Restaurant</th>
@@ -21,24 +21,51 @@
                 <th>State</th>
             </tr>
         </thead>
-
-        <tr>
-            <td>@restaurant.restaurantName</td>
-            <td>@restaurant.phone </td>
-            <td>@restaurant.hoursInterval </td>
-            <td>@restaurant.address </td>
-            <td>@restaurant.cityName </td>
-            <td>@restaurant.stateName </td>
-
-        </tr>
+        <tbody class="table-group-divider">
+            @foreach (var rest in results.restaurants)
+            {
+                <tr>
+                    <td>@rest.restaurantName</td>
+                    <td>@rest.phone </td>
+                    <td>@rest.hoursInterval </td>
+                    <td>@rest.address </td>
+                    <td>@rest.cityName </td>
+                    <td>@rest.stateName </td>
+                </tr>
+            }
+        </tbody>
     </table>
-    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-    {
-        @*<div class="form-group">
-            <input type="text" name="home" class="form-control text-center" maxlength="5" />
-        </div>*@
-        <br />
+  </div>
 
-        <input type="submit" value="Back to Home" class="btn btn-primary" />
-    }
-</div>
+    <div class="container text-center">
+        <ul class="pagination justify-content-center">
+            @{
+                int pageCount = (int)Math.Ceiling(results.matching_results / 10.0);
+
+                if (results.matching_results > 10.0)
+                {
+                    
+                    @for (int i = 0; i < pageCount; i++)
+                    {
+                        <li class="page-item text-center">@Html.ActionLink((i + 1).ToString(), "Index", "RestaurantMVC", new { zipCode = ViewBag.ZipCode, page = i }, new Dictionary<string, object> { { "class", "page" } })</li>
+                    }
+
+                }
+            }
+        </ul>
+    </div>
+    <div class="container text-center">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+
+        {
+
+            <input type="submit" value="Back to Home" class="btn btn-primary" />
+
+        }
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+

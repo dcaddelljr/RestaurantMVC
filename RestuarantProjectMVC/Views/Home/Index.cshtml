@@ -12,14 +12,15 @@
 <div style="width: 20%; margin: 0 auto" class="text-center">
     <div class="form-row align-items-center">
         @using (Html.BeginForm("Index", "RestaurantMVC", FormMethod.Get))
-        {
-            <div class="form-group">
-                <input type="text" name="ZipCode" class="form-control text-center" maxlength="5" />
+         {
+            <div class="form-group text-center">
+                <input type="text" name="ZipCode" placeholder="zip code" class="form-control text-center opacity-75" maxlength="5"/>
+                <input type="hidden" name="Page" value="0" />
             </div>
             <br />
 
             <input type="submit" value="Enter" class="btn btn-primary" />
-        }
+         }
     </div>
 </div>
 
