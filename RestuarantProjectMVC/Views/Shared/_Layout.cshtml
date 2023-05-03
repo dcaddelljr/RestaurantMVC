@@ -11,6 +11,7 @@
 </head>
 <body>
     <header>
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -21,8 +22,8 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="RestaurantMVC" asp-action="Index">Restaurant</a>
-                        </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="RestaurantMVC" asp-action="Index">Restaurant</a>
+                            </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
@@ -31,7 +32,10 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="has-bg-img container">
+        
+        <img class="bg-img img src=darius-bashar-o72kVqUV-94-unsplash.jpg alt=I don't know">
+   
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
