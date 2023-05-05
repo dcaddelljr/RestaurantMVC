@@ -7,67 +7,76 @@
 
 
 <br />
-<div class="text-center align-items-center">
+<div class="text-center align-items-center container">
     <h2>Restaurants</h2>
-
-    <table class=" table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Restaurant</th>
-                <th>Phone Number</th>
-                <th>Hours</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            @if (results.restaurants == null)
-            {
-                <tr>
-                    <td>No restaurant returned. Go back home.</td>
-                    <td>null</td>
-                    <td>null</td>
-                    <td>null</td>
-                    <td>null</td>
-                    <td>null</td>
+    <div class="table-responsive-sm">
+        <table class="table table-bordered table-hover table-secondary text-wrap">
+            <thead>
+                <tr class="fw-bolder">
+                    <th>Restaurant</th>
+                    <th>Phone Number</th>
+                    <th>Hours</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
                 </tr>
-            }
-            else
-            {
-                @foreach (var rest in results.restaurants)
+            </thead>
+            <tbody class="table-group-divider align-middle">
+                @if (results.restaurants == null)
                 {
                     <tr>
-                        <td>@rest.restaurantName</td>
-                        <td>@rest.phone </td>
-                        <td>@rest.hoursInterval </td>
-                        <td>@rest.address </td>
-                        <td>@rest.cityName </td>
-                        <td>@rest.stateName </td>
+                        <td>No restaurants returned. Go back home.</td>
+                        <td>null</td>
+                        <td>null</td>
+                        <td>null</td>
+                        <td>null</td>
+                        <td>null</td>
                     </tr>
                 }
-            }
-        </tbody>
-    </table>
-  </div>
-
-    <div class="container text-center">
-        <ul class="pagination justify-content-center">
-            @{
-                int pageCount = (int)Math.Ceiling(results.matching_results / 10.0);
-
-                if (results.matching_results > 10.0)
+                else
                 {
-                    
-                    @for (int i = 0; i < pageCount; i++)
+                    @foreach (var rest in results.restaurants)
                     {
-                        <li class="page-item text-center">@Html.ActionLink((i + 1).ToString(), "Index", "RestaurantMVC", new { zipCode = ViewBag.ZipCode, page = i }, new Dictionary<string, object> { { "class", "page" } })</li>
+                        <tr>
+                            <td>@rest.restaurantName</td>
+                            <td>@rest.phone </td>
+                            <td>@rest.hoursInterval </td>
+                            <td>@rest.address </td>
+                            <td>@rest.cityName </td>
+                            <td>@rest.stateName </td>
+                        </tr>
                     }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<nav aria-label="Page navigation">
+    <ul class=" pagination justify-content-center pagination-lg">
+        @{
+
+            int pageCount = (int)Math.Ceiling(results.matching_results / 10.0);
+
+            if (results.matching_results > 10.0)
+            {
+
+                @for (int i = 0; i < pageCount; i++)
+                {
+
+                    <li class="page-item">@Html.ActionLink((i + 1).ToString(), "Index", "RestaurantMVC", new { zipCode = ViewBag.ZipCode, page = i }, new Dictionary<string, object> { { "class", "page" } })</li>
+
 
                 }
             }
-        </ul>
-    </div>
+
+        }
+    </ul>
+    </nav>
+
+
     <div class="container text-center">
         @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 

@@ -47,29 +47,7 @@ namespace RestuarantProjectMVC.Controllers
             return View(restaurant);
         }
 
-        //public IActionResult RestuarantMVC(string zipCode)
-        //{
-        //    var restaruant = new RestaurantMVC();
-
-        //    if (zipCode == null)
-        //    {
-        //        return View(restaruant);
-        //    }
-
-        //    try
-        //    {
-        //        restaurant = repo.GetRestaurants(zipCode);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return RedirectToAction("Index", "Restaurant");
-        //    }
-        //    restaruant = repo.GetRestaurants(zipCode);
-
-        //    ViewBag.Restaurant = GetRestaurants();
-        //    return View();
-        //}
-
+       
         private dynamic GetRestaurants()
         {
             throw new NotImplementedException();
